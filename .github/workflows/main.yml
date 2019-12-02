@@ -1,0 +1,32 @@
+name: "Test"
+on:
+  pull_request:
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v1
+      - name: Checkout other repository
+        uses: actions/checkout@v1
+        with:
+          repository: sdrycroft/test-actions-cache-second-repository
+          ref: master
+      - name: Cache this repository's vendor folder
+        uses: actions/cache@v1
+        with:
+          path: docroot/vendor
+          key: test-actions-cache-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            test-actions-cache-composer-
+      - name: Cache other repository's vendor folder
+        uses: actions/cache@v1
+        with:
+          path: ../test-actions-cache-second-repository/vendor
+          key: test-actions-cache-second-repository-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            test-actions-cache-second-repository-composer-
+      - name: Composer install
+        run: |
+          docker-compose run composer-this install --ignore-platform-reqs --no-scripts
+          docker-compose run composer-other install --ignore-platform-reqs --no-scripts
