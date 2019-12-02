@@ -15,14 +15,14 @@ jobs:
         uses: actions/cache@v1
         with:
           path: docroot/vendor
-          key: test-actions-cache-composer-${{ hashFiles('cruk_fundraising/composer.lock') }}
+          key: test-actions-cache-composer-${{ hashFiles('**/cruk_fundraising/composer.lock') }}
           restore-keys: |
             test-actions-cache-composer-
       - name: Cache other repository's vendor folder
         uses: actions/cache@v1
         with:
           path: ../test-actions-cache-second-repository/vendor
-          key: test-actions-cache-second-repository-composer-${{ hashFiles('cruk_fundraising_web_service/composer.lock') }}
+          key: test-actions-cache-second-repository-composer-${{ hashFiles('**/cruk_fundraising_web_service/composer.lock') }}
           restore-keys: |
             test-actions-cache-second-repository-composer-
       - name: Composer install
