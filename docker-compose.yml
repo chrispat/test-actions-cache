@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  composer-this:
+    image: composer:latest
+    volumes:
+      - .:/app:delegated
+  composer-other:
+    image: composer:latest
+    volumes:
+      - ../test-actions-cache-second-repository:/app:delegated
