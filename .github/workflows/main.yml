@@ -5,12 +5,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout this repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2-beta
       - name: Checkout other repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2-beta
         with:
           repository: sdrycroft/test-actions-cache-second-repository
           ref: master
+      - run: ls -l
       - name: Cache this repository's vendor folder
         uses: actions/cache@v1
         with:
