@@ -6,12 +6,15 @@ jobs:
     steps:
       - name: Checkout this repository
         uses: actions/checkout@v2-beta
+        with:
+          path: repo1
       - name: Checkout other repository
         uses: actions/checkout@v2-beta
         with:
           repository: sdrycroft/test-actions-cache-second-repository
           ref: master
-      - run: tree
+          path: repo2
+      - run: ls -r
       - name: Cache this repository's vendor folder
         uses: actions/cache@v1
         with:
