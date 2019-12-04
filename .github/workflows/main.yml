@@ -6,30 +6,28 @@ jobs:
     steps:
       - name: Checkout this repository
         uses: actions/checkout@v2-beta
-        with:
-          path: repo1
       - name: Checkout other repository
         uses: actions/checkout@v2-beta
         with:
           repository: sdrycroft/test-actions-cache-second-repository
           ref: master
-          path: repo2
-      - run: ls -r
+          path: test-actions-cache-second-repository
       - name: Cache this repository's vendor folder
         uses: actions/cache@v1
         with:
           path: vendor
-          key: test-actions-cache-composer-${{ hashFiles('**/composer.lock') }}
+          key: test-actions-cache-composer-${{ hashFiles('composer.lock') }}
           restore-keys: |
             test-actions-cache-composer-
       - name: Cache other repository's vendor folder
         uses: actions/cache@v1
         with:
-          path: ../test-actions-cache-second-repository/vendor
-          key: test-actions-cache-second-repository-composer-${{ hashFiles('**/composer.lock') }}
+          path: test-actions-cache-second-repository/vendor
+          key: test-actions-cache-second-repository-composer-${{ hashFiles('test-actions-cache-second-repository/composer.lock') }}
           restore-keys: |
             test-actions-cache-second-repository-composer-
       - name: Composer install
         run: |
           docker-compose run composer-this install --ignore-platform-reqs --no-scripts
           docker-compose run composer-other install --ignore-platform-reqs --no-scripts
+      
