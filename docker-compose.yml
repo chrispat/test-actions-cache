@@ -8,4 +8,4 @@ services:
   composer-other:
     image: composer:latest
     volumes:
-      - ../test-actions-cache-second-repository:/app:delegated
+      - ./test-actions-cache-second-repository:/app:delegated
