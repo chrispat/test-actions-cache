@@ -11,7 +11,7 @@ jobs:
         with:
           repository: sdrycroft/test-actions-cache-second-repository
           ref: master
-      - run: ls -l
+      - run: tree
       - name: Cache this repository's vendor folder
         uses: actions/cache@v1
         with:
